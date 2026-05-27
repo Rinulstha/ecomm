@@ -70,7 +70,7 @@ const ProductsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div style={{ background: 'var(--bg)' }} className="min-h-screen">
       <Navbar />
 
       <div className="max-w-7xl mx-auto px-6 py-8">

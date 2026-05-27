@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom'
 import useAuthStore from '../store/authStore'
 import useCartStore from '../store/cartStore'
-
+import useThemeStore from '../store/themeStore'
 const Navbar = () => {
   const { user, logout } = useAuthStore()
   const { getTotalItems } = useCartStore()
   const navigate = useNavigate()
-
+const { theme, toggleTheme } = useThemeStore()
   const handleLogout = async () => {
     await logout()
     navigate('/login')
@@ -15,7 +15,8 @@ const Navbar = () => {
   const isAdmin = user?.role === 'ADMIN'
 
   return (
-    <nav className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+   <nav style={{ background: 'var(--bg)', borderBottom: '1px solid var(--border)' }}
+  className="px-6 py-4 flex items-center justify-between sticky top-0 z-50">
       {/* logo — goes to different home based on role */}
       <Link
         to={isAdmin ? '/admin/products' : '/products'}
@@ -81,6 +82,15 @@ const Navbar = () => {
           Logout
         </button>
       </div>
+      
+
+<button
+  onClick={toggleTheme}
+  className="text-lg hover:scale-110 transition"
+  title="Toggle theme"
+>
+  {theme === 'dark' ? '☀️' : '🌙'}
+</button>
     </nav>
   )
 }

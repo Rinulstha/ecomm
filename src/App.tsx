@@ -12,15 +12,19 @@ import AdminCategoriesPage from './pages/admin/AdminCategoriesPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import CartPage from './pages/CartPage'
 import AdminRoute from './components/AdminRoute'
+import useThemeStore from './store/themeStore'
 function App() {
   const { getCurrentUser, accessToken } = useAuthStore()
+ const { theme } = useThemeStore()
 
   useEffect(() => {
     if (accessToken) getCurrentUser()
   }, [])
 
+
   return (
-    <BrowserRouter>
+   <div className={theme}>
+     <BrowserRouter>
       <Routes>
         {/* public */}
         <Route path="/" element={<Navigate to="/register" />} />
@@ -77,6 +81,7 @@ function App() {
         <Route path="*" element={<Navigate to="/register" />} />
       </Routes>
     </BrowserRouter>
+   </div>
   )
 }
 
